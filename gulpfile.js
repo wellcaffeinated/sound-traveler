@@ -8,16 +8,18 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var jade = require('gulp-jade');
+var connect = require('gulp-connect');
 
 var $ = (function(){
     var folders = {
         dev: {
             js: 'public/js'
-            ,sass: 'public/stylesheets'
+            ,scss: 'public/stylesheets'
             ,jade: 'templates'
         }
         ,dist: {
-            js: 'build/js'
+            root: 'build'
+            ,js: 'build/js'
             ,css: 'build/css'
             ,html: 'build'
         }
@@ -64,11 +66,26 @@ gulp.task('scripts', function() {
         .pipe( gulp.dest( $('dist.js') ) );
 });
 
+gulp.task('server', function() {
+    connect.server({
+        root: $('dist.root'),
+        livereload: true
+    });
+});
+
+gulp.task('reload-server', function() {
+    gulp.src( $('dist.root', '/**/*.html') )
+        .pipe( connect.reload() );
+});
+
 // Watch Files For Changes
 gulp.task('watch', function() {
+    gulp.watch( $('dev.jade', '/**/*.jade'), ['jade', 'reload-server'] );
     gulp.watch( $('dev.js', '/**/*.js'), ['lint', 'scripts'] );
     gulp.watch( $('dev.scss', '/**/*.scss'), ['sass'] );
 });
 
 // Default Task
-gulp.task( 'default', ['lint', 'sass', 'scripts', 'watch'] );
+gulp.task( 'default', ['lint', 'sass', 'scripts', 'jade'] );
+
+gulp.task( 'dev', ['sass', 'scripts', 'jade', 'watch', 'server'] );

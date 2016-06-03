@@ -1,4 +1,5 @@
-!(function( _ ){
+(function( _ ){
 
+    var a;
 
 })( this._ );
