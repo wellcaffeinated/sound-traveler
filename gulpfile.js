@@ -66,32 +66,37 @@ gulp.task('scripts', function() {
             debug: false
 		}))
         .pipe( concat( 'all.js' ) )
-        .pipe( gulp.dest( $('dist.js') ) )
+        .pipe( gulp.dest( $('dist.js') ) );
+});
+
+gulp.task('scripts-min', ['scripts'], function(){
+    return gulp.src( $('dist.js', '/all.js') )
         .pipe( rename( 'all.min.js' ) )
         .pipe( uglify() )
         .pipe( gulp.dest( $('dist.js') ) );
 });
 
 gulp.task('server', function() {
-    connect.server({
+    return connect.server({
         root: $('dist.root'),
         livereload: true
     });
 });
 
 gulp.task('reload-server', function() {
-    gulp.src( $('dist.root', '/**/*.html') )
+    return gulp.src( $('dist.root', '/**/*.html') )
         .pipe( connect.reload() );
 });
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-    gulp.watch( $('dev.jade', '/**/*.jade'), ['jade', 'reload-server'] );
+    gulp.watch( $('dev.jade', '/**/*.jade'), ['jade'] );
     gulp.watch( $('dev.js', '/**/*.js'), ['lint', 'scripts'] );
     gulp.watch( $('dev.scss', '/**/*.scss'), ['sass'] );
+    gulp.watch( $('dist.root', '/**/*.{js,html,css}'), ['reload-server'] );
 });
 
 // Default Task
-gulp.task( 'default', ['lint', 'sass', 'scripts', 'jade'] );
+gulp.task( 'default', ['lint', 'sass', 'scripts', 'scripts-min', 'jade'] );
 
 gulp.task( 'dev', ['sass', 'scripts', 'jade', 'watch', 'server'] );
