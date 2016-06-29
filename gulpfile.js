@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var _ = require('lodash');
+var jshintConfig = require('./config/jshint.json');
 
 // Include Our Plugins
 var jshint = require('gulp-jshint');
@@ -9,6 +10,7 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var jade = require('gulp-jade');
 var connect = require('gulp-connect');
+var browserify = require('gulp-browserify');
 
 var $ = (function(){
     var folders = {
@@ -45,7 +47,7 @@ gulp.task( 'jade', function() {
 // Lint Task
 gulp.task('lint', function() {
     return gulp.src( $('dev.js', '/**/*.js') )
-        .pipe( jshint() )
+        .pipe( jshint( jshintConfig ) )
         .pipe( jshint.reporter('default') );
 });
 
@@ -59,6 +61,10 @@ gulp.task('sass', function() {
 // Concatenate & Minify JS
 gulp.task('scripts', function() {
     return gulp.src( $('dev.js', '/**/*.js') )
+        .pipe(browserify({
+            insertGlobals: true,
+            debug: false
+		}))
         .pipe( concat( 'all.js' ) )
         .pipe( gulp.dest( $('dist.js') ) )
         .pipe( rename( 'all.min.js' ) )

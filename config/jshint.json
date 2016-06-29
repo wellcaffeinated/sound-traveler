@@ -1,0 +1,16 @@
+{
+    "curly" : true,
+    "laxcomma" : true,
+    "eqeqeq" : true,
+    "immed" : true,
+    "latedef" : true,
+    "maxdepth": 4,
+    "newcap" : false,
+    "noarg" : true,
+    "sub" : true,
+    "undef" : true,
+    "boss" : true,
+    "eqnull" : true,
+    "browser" : false,
+    "node": true
+}
