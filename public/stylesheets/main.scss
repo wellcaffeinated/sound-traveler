@@ -1,11 +1,13 @@
 /* scss here */
 
-.content {
-    margin: auto;
-    max-width: 900px;
+body {
+    margin:0;
+    padding:0;
 }
 
-.pagination {
-    font-size: 16px;
-    margin: 0;
+#map {
+    position: absolute;
+    top:0;
+    bottom:0;
+    width:100%;
 }
