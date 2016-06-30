@@ -15,7 +15,8 @@ var browserify = require('gulp-browserify');
 var $ = (function(){
     var folders = {
         dev: {
-            js: 'public/js'
+            data: 'public/features.json'
+            ,js: 'public/js'
             ,scss: 'public/stylesheets'
             ,jade: 'templates'
         }
@@ -76,7 +77,12 @@ gulp.task('scripts-min', ['scripts'], function(){
         .pipe( gulp.dest( $('dist.js') ) );
 });
 
-gulp.task('server', function() {
+gulp.task('copy', function() {
+    gulp.src( $('dev.data') )
+        .pipe( gulp.dest( $('dist.root') ) );
+});
+
+gulp.task('server', ['copy'], function() {
     return connect.server({
         root: $('dist.root'),
         livereload: true
@@ -90,10 +96,11 @@ gulp.task('reload-server', function() {
 
 // Watch Files For Changes
 gulp.task('watch', function() {
+    gulp.watch( $('dev.data'), ['copy'] );
     gulp.watch( $('dev.jade', '/**/*.jade'), ['jade'] );
     gulp.watch( $('dev.js', '/**/*.js'), ['lint', 'scripts'] );
     gulp.watch( $('dev.scss', '/**/*.scss'), ['sass'] );
-    gulp.watch( $('dist.root', '/**/*.{js,html,css}'), ['reload-server'] );
+    gulp.watch( $('dist.root', '/**/*.{js,html,css,json}'), ['reload-server'] );
 });
 
 // Default Task

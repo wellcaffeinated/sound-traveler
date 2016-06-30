@@ -1,0 +1,139 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "marker-innf2hvr0",
+                "title": "<b><a href=\"https://youtu.be/6MFUNQeq5js\">Lincoln Memorial</a></b><br>",
+                "description": "<a href=\"https://youtu.be/6MFUNQeq5js\"><img src=\"https://dl.dropbox.com/s/ohxs5jas0m6xieu/0001_Lincoln_Memorial_Thumb.jpg?raw=1\" alt=\"LincolnMemorialWalk\"></a>",
+                "marker-size": "medium",
+                "marker-color": "#E75300",
+                "marker-symbol": ""
+            },
+            "geometry": {
+                "coordinates": [
+                    -77.050174,
+                    38.889265
+                ],
+                "type": "Point"
+            },
+            "id": "5120ec486995d415950f88e15531c804"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "marker-ipflqtu41",
+                "title": "<b>U.S. National Museum of National History</b>",
+                "description": "<a href=\"https://youtu.be/Xsm9NA7ysjM\"><img src=\"https://dl.dropbox.com/s/ex9tlrq8exbo5y5/0002_Natural_History_Thumb.jpg?raw=1\" alt=“NationalMuseumNaturalHistory\"></a>",
+                "marker-size": "medium",
+                "marker-color": "#E75300",
+                "marker-symbol": ""
+            },
+            "geometry": {
+                "coordinates": [
+                    -77.025994,
+                    38.891258
+                ],
+                "type": "Point"
+            },
+            "id": "980513a54dce08a7b9fa257588f1ab09"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "marker-iog7a2sc0",
+                "title": "<b><a href=\"https://youtu.be/Y4kc6HloTzA\">The Mona Lisa at the Louvre</a></b><br>",
+                "description": "<a href=\"https://youtu.be/Y4kc6HloTzA\"><img src=\"https://dl.dropbox.com/s/3eqhpcoonx4o6ut/0003_Mona_Lisa_Thumb.jpg?raw=1\" alt=\"MonaLisaWalk\"></a>",
+                "marker-size": "medium",
+                "marker-color": "#E75300",
+                "marker-symbol": ""
+            },
+            "geometry": {
+                "coordinates": [
+                    2.337521,
+                    48.860605
+                ],
+                "type": "Point"
+            },
+            "id": "9808b994b64427bf63a69b206a1c8890"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "marker-ipzt3ir50",
+                "title": "Visiting the Shire",
+                "description": "<a href=\"https://youtu.be/AULTumrVHqg\"><img src=\"https://dl.dropbox.com/s/9lip54q06n6bc6o/0007_TheShire.jpg\n?raw=1\" alt=“TheShire\"></a>\n",
+                "marker-size": "medium",
+                "marker-color": "#E75300",
+                "marker-symbol": ""
+            },
+            "geometry": {
+                "coordinates": [
+                    -184.316768,
+                    -37.872312
+                ],
+                "type": "Point"
+            },
+            "id": "ac703786aa7ab7d1dbd8c5f86079e336"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "marker-iowzxdg00",
+                "title": "<b><a href=\"https://youtu.be/jpiSUYNka0A\">Hitler's Bunker at Berghof</a></b><br>",
+                "description": "<a href=\"https://youtu.be/jpiSUYNka0A\"><img src=\"https://dl.dropbox.com/s/o2x0yxzv25wfgax/0004_HitlersBunkeratBerghof.jpg?raw=1\" alt=\"HitlersBunkerAtBerghof\"></a>",
+                "marker-size": "medium",
+                "marker-color": "#E75300",
+                "marker-symbol": ""
+            },
+            "geometry": {
+                "coordinates": [
+                    13.043829,
+                    47.633735
+                ],
+                "type": "Point"
+            },
+            "id": "ad49983ec1062a2125e526de68d426bb"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "marker-ipflyyxw2",
+                "title": "Bernie Sanders Speech and Handshake",
+                "description": "<a href=\"https://youtu.be/rqrtaY0K7rs\"><img src=\"https://dl.dropbox.com/s/iwxmwk11vkdepaw/0006_FeelTheBurn.jpg?raw=1\" alt=“FeelTheBurn\"></a>",
+                "marker-size": "medium",
+                "marker-color": "#E75300",
+                "marker-symbol": ""
+            },
+            "geometry": {
+                "coordinates": [
+                    -76.97192,
+                    38.889771
+                ],
+                "type": "Point"
+            },
+            "id": "b301f6be0409e89294e175f0ff21f135"
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "marker-in0lstm70",
+                "title": "Machu Picchu",
+                "description": "<a href=\"https://youtu.be/S0uGsAksBaY\"><img src=\"https://dl.dropbox.com/s/qzrr79z8wnumc6w/0000_Machu_Picchu_Thumb.jpg?raw=1\" alt=\"MachuPicchuHike\"></a>",
+                "marker-size": "medium",
+                "marker-color": "#E75300",
+                "marker-symbol": ""
+            },
+            "geometry": {
+                "coordinates": [
+                    -72.544763,
+                    -13.164467
+                ],
+                "type": "Point"
+            },
+            "id": "d481f72d07fa701608c42c63d7f5595b"
+        }
+    ],
+    "id": "thesoundtraveler.pm8inaji"
+}

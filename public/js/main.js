@@ -17,7 +17,8 @@ function init(){
         // 'cluster' option to true.
         map.addSource("st-data", {
             type: "geojson",
-            data: "https://a.tiles.mapbox.com/v4/thesoundtraveler.pm8inaji/features.json?access_token=pk.eyJ1IjoidGhlc291bmR0cmF2ZWxlciIsImEiOiJjaW4wbGhhbHUwYTh5dmhtNGE4NTF2anliIn0.CBcwSbDPfEHfSBLVt_rmOA",
+            // data: "https://a.tiles.mapbox.com/v4/thesoundtraveler.pm8inaji/features.json?access_token=pk.eyJ1IjoidGhlc291bmR0cmF2ZWxlciIsImEiOiJjaW4wbGhhbHUwYTh5dmhtNGE4NTF2anliIn0.CBcwSbDPfEHfSBLVt_rmOA",
+            data: "features.json",
             cluster: true,
             clusterMaxZoom: 14, // Max zoom to cluster points on
             clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
