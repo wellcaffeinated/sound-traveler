@@ -1,0 +1,15 @@
+<div class="animate modal modal-content {{isActive ? 'active' : ''}}">
+    <div class="modal-popup">
+        <div class="col6 modal-body fill-white contain">
+            <a class="quiet pad1 icon fr close dark" href="#close"></a>
+            <div class="fill-blue dark pad1y">
+                <div class="pad4x center">
+                    Hello {{ name }}
+                </div>
+            </div>
+            <div class="pad4x pad2y">
+                Hello {{ name }}
+            </div>
+        </div>
+    </div>
+</div>

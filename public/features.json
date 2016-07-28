@@ -120,7 +120,7 @@
             "properties": {
                 "id": "marker-in0lstm70",
                 "title": "Machu Picchu",
-                "description": "<a href=\"https://youtu.be/S0uGsAksBaY\"><img src=\"https://dl.dropbox.com/s/qzrr79z8wnumc6w/0000_Machu_Picchu_Thumb.jpg?raw=1\" alt=\"MachuPicchuHike\"></a>",
+                "description": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/S0uGsAksBaY\" frameborder=\"0\" allowfullscreen></iframe>",
                 "marker-size": "medium",
                 "marker-color": "#E75300",
                 "marker-symbol": ""

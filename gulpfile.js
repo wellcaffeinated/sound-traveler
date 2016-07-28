@@ -11,6 +11,8 @@ var rename = require('gulp-rename');
 var jade = require('gulp-jade');
 var connect = require('gulp-connect');
 var browserify = require('gulp-browserify');
+var sourcemaps = require('gulp-sourcemaps');
+
 
 var $ = (function(){
     var folders = {
@@ -62,11 +64,17 @@ gulp.task('sass', function() {
 // Concatenate & Minify JS
 gulp.task('scripts', function() {
     return gulp.src( $('dev.js', '/**/*.js') )
+        .pipe(sourcemaps.init())
         .pipe(browserify({
             insertGlobals: true,
-            debug: false
+            debug: false,
+            transform: [
+                [ "monkberrify" ],
+                [ "babelify" ]
+            ]
 		}))
         .pipe( concat( 'all.js' ) )
+        .pipe( sourcemaps.write( $('dist.js') ) )
         .pipe( gulp.dest( $('dist.js') ) );
 });
 
@@ -98,9 +106,9 @@ gulp.task('reload-server', function() {
 gulp.task('watch', function() {
     gulp.watch( $('dev.data'), ['copy'] );
     gulp.watch( $('dev.jade', '/**/*.jade'), ['jade'] );
-    gulp.watch( $('dev.js', '/**/*.js'), ['lint', 'scripts'] );
+    gulp.watch( $('dev.js', '/**/*.{js,monk}'), ['lint', 'scripts'] );
     gulp.watch( $('dev.scss', '/**/*.scss'), ['sass'] );
-    gulp.watch( $('dist.root', '/**/*.{js,html,css,json}'), ['reload-server'] );
+    gulp.watch( $('dist.root', '/**/*.{js,html,monk,css,json}'), ['reload-server'] );
 });
 
 // Default Task

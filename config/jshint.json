@@ -12,5 +12,6 @@
     "boss" : true,
     "eqnull" : true,
     "browser" : false,
-    "node": true
+    "node": true,
+    "esversion": 6
 }

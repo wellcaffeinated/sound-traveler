@@ -1,3 +1,6 @@
+import Monkberry from 'monkberry';
+import Template from './test.monk';
+
 var _ = require( 'lodash' )
     , mapbox = require( 'mapbox-gl' )
     , domready = require( 'domready' )
@@ -10,6 +13,11 @@ function init(){
         container: 'map',
         style: 'mapbox://styles/thesoundtraveler/cinhs70rj000saaktqychkibp'
     });
+
+    const view = Monkberry.render(Template, document.body);
+    view.update({name: 'World'});
+
+    setTimeout(()=>view.update({name: 'world', isActive: true}), 5000);
 
     map.on('load', function(){
 
