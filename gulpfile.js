@@ -10,8 +10,17 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var jade = require('gulp-jade');
 var connect = require('gulp-connect');
-var browserify = require('gulp-browserify');
-var sourcemaps = require('gulp-sourcemaps');
+var browserify = require('browserify');
+var buffer = require('vinyl-buffer');
+var source = require('vinyl-source-stream');
+var monkberrify = require('monkberrify');
+var babelify = require('babelify');
+var gutil = require("gulp-util");
+var webpack = require("webpack");
+var WebpackDevServer = require("webpack-dev-server");
+var webpackConfig = require("./webpack.config.js");
+
+// var sourcemaps = require('gulp-sourcemaps');
 
 
 var $ = (function(){
@@ -63,19 +72,27 @@ gulp.task('sass', function() {
 
 // Concatenate & Minify JS
 gulp.task('scripts', function() {
-    return gulp.src( $('dev.js', '/**/*.js') )
-        .pipe(sourcemaps.init())
-        .pipe(browserify({
-            insertGlobals: true,
-            debug: false,
-            transform: [
-                [ "monkberrify" ],
-                [ "babelify" ]
-            ]
-		}))
+
+    var options = {
+        insertGlobals: true,
+        debug: true
+    };
+
+    var b = browserify( $('dist.js', '/all.js'), options );
+    b.transform( monkberrify );
+    b.transform( babelify, { presets: ['es2015'] } );
+    b.bundle()
+        .pipe( source( $('dist.js', '/all.js') ) )
+        .pipe( buffer() )
         .pipe( concat( 'all.js' ) )
-        .pipe( sourcemaps.write( $('dist.js') ) )
         .pipe( gulp.dest( $('dist.js') ) );
+
+    // return gulp.src( $('dev.js', '/**/*.js') )
+    //     // .pipe(sourcemaps.init())
+    //     .pipe( browserified )
+    //     .pipe( concat( 'all.js' ) )
+    //     // .pipe( sourcemaps.write( $('dist.js') ) )
+    //     .pipe( gulp.dest( $('dist.js') ) );
 });
 
 gulp.task('scripts-min', ['scripts'], function(){
@@ -111,7 +128,60 @@ gulp.task('watch', function() {
     gulp.watch( $('dist.root', '/**/*.{js,html,monk,css,json}'), ['reload-server'] );
 });
 
+// Webpack
+gulp.task('webpack:build', function(callback) {
+	// modify some webpack config options
+	var myConfig = Object.create(webpackConfig);
+	myConfig.plugins = myConfig.plugins.concat(
+		new webpack.DefinePlugin({
+			'process.env': {
+				// This has effect on the react lib size
+				'NODE_ENV': JSON.stringify('production')
+			}
+		}),
+		new webpack.optimize.DedupePlugin(),
+		new webpack.optimize.UglifyJsPlugin()
+	);
+
+	// run webpack
+	webpack(myConfig, function(err, stats) {
+		if (err) {
+            throw new gutil.PluginError('webpack:build', err);
+        }
+		gutil.log('[webpack:build]', stats.toString({
+			colors: true
+		}));
+		callback();
+	});
+});
+
+// create a single instance of the compiler to allow caching
+gulp.task('webpack-dev-server', function(callback) {
+	// modify some webpack config options
+	var myConfig = Object.create(webpackConfig);
+    myConfig.entry.unshift("webpack-dev-server/client?http://localhost:8080/");
+	myConfig.debug = true;
+
+	// Start a webpack-dev-server
+	new WebpackDevServer(webpack(myConfig), {
+		publicPath: '/' + myConfig.output.publicPath,
+		stats: {
+			colors: true
+		},
+        contentBase: $('dist.root')
+	}).listen(8080, 'localhost', function(err) {
+		if (err) {
+            throw new gutil.PluginError('webpack-dev-server', err);
+        }
+		gutil.log('[webpack-dev-server]', 'http://localhost:8080');
+	});
+});
+
+
 // Default Task
 gulp.task( 'default', ['lint', 'sass', 'scripts', 'scripts-min', 'jade'] );
 
 gulp.task( 'dev', ['sass', 'scripts', 'jade', 'watch', 'server'] );
+
+gulp.task( 'dev-wp', ['jade', 'webpack-dev-server'] );
+gulp.task( 'build', ['webpack:build'] );

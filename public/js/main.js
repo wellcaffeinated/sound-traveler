@@ -1,10 +1,11 @@
+import './main.scss';
+import _ from 'lodash';
+import mapbox from 'mapbox-gl';
+import domready from 'domready';
+import 'monkberry-events';
 import Monkberry from 'monkberry';
-import Template from './test.monk';
-
-var _ = require( 'lodash' )
-    , mapbox = require( 'mapbox-gl' )
-    , domready = require( 'domready' )
-    ;
+import Modal from './modal/modal';
+import markerData from '../features.json';
 
 mapbox.accessToken = 'pk.eyJ1IjoidGhlc291bmR0cmF2ZWxlciIsImEiOiJjaW4wbGhhbHUwYTh5dmhtNGE4NTF2anliIn0.CBcwSbDPfEHfSBLVt_rmOA';
 
@@ -14,10 +15,8 @@ function init(){
         style: 'mapbox://styles/thesoundtraveler/cinhs70rj000saaktqychkibp'
     });
 
-    const view = Monkberry.render(Template, document.body);
-    view.update({name: 'World'});
-
-    setTimeout(()=>view.update({name: 'world', isActive: true}), 5000);
+    const modal = Monkberry.render(Modal, document.body);
+    modal.show();
 
     map.on('load', function(){
 
@@ -26,7 +25,7 @@ function init(){
         map.addSource("st-data", {
             type: "geojson",
             // data: "https://a.tiles.mapbox.com/v4/thesoundtraveler.pm8inaji/features.json?access_token=pk.eyJ1IjoidGhlc291bmR0cmF2ZWxlciIsImEiOiJjaW4wbGhhbHUwYTh5dmhtNGE4NTF2anliIn0.CBcwSbDPfEHfSBLVt_rmOA",
-            data: "features.json",
+            data: markerData,
             cluster: true,
             clusterMaxZoom: 14, // Max zoom to cluster points on
             clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
