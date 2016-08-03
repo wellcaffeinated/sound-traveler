@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 	devtool: 'cheap-module-source-map',
@@ -9,9 +10,8 @@ module.exports = {
 		'./public/js/main.js'
 	],
 	output: {
-		path: path.join(__dirname, 'build/js'),
-		filename: 'all.js',
-		publicPath: 'js/'
+		path: path.join(__dirname, 'build'),
+		filename: 'all.js'
 	},
 	plugins: [
 		new webpack.optimize.OccurenceOrderPlugin(),
@@ -19,7 +19,10 @@ module.exports = {
 		new webpack.NoErrorsPlugin(),
 		new ExtractTextPlugin('all.css', {
             allChunks: true
-        })
+        }),
+		new HtmlWebpackPlugin({
+	    	template: 'public/index.pug'
+	    })
 	],
 	resolve: {
 		alias: {
@@ -41,6 +44,7 @@ module.exports = {
 			},
 			{
 				test: /\.monk$/,
+				exclude: /node_modules/,
 				loader: 'monkberry-loader'
 			},
 			{
@@ -52,6 +56,11 @@ module.exports = {
 			{
 				test: /\.json$/,
 				loader: "json-loader"
+			},
+			{
+				test: /\.pug$/,
+				exclude: /node_modules/,
+				loader: 'pug-loader'
 			}
 		],
 		postLoaders: [

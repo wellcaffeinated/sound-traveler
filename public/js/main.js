@@ -10,8 +10,13 @@ import markerData from '../features.json';
 mapbox.accessToken = 'pk.eyJ1IjoidGhlc291bmR0cmF2ZWxlciIsImEiOiJjaW4wbGhhbHUwYTh5dmhtNGE4NTF2anliIn0.CBcwSbDPfEHfSBLVt_rmOA';
 
 function init(){
+
+    var el = document.createElement('div');
+    el.id = 'map';
+    document.body.appendChild( el );
+
     var map = new mapbox.Map({
-        container: 'map',
+        container: el,
         style: 'mapbox://styles/thesoundtraveler/cinhs70rj000saaktqychkibp'
     });
 
