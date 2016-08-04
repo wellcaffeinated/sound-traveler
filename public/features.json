@@ -120,11 +120,13 @@
             "properties": {
                 "id": "marker-in0lstm70",
                 "title": "Machu Picchu",
-                "description": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/S0uGsAksBaY\" frameborder=\"0\" allowfullscreen></iframe>",
+                "description": "Walking around Machu Picchu",
                 "marker-size": "medium",
                 "marker-color": "#E75300",
                 "marker-symbol": "",
-                "youtube": "S0uGsAksBaY"
+                "youtube": "https://youtu.be/S0uGsAksBaY",
+                "image": "https://dl.dropbox.com/s/iwxmwk11vkdepaw/0006_FeelTheBurn.jpg?raw=1",
+                "caption": "Bernie"
             },
             "geometry": {
                 "coordinates": [

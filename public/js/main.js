@@ -21,6 +21,10 @@ class SoundTravelerMap {
         parent = parent || document.body;
         parent.appendChild( this.el );
 
+        // this.debugEl = document.createElement('pre');
+        // this.debugEl.id = 'debug-el';
+        // parent.appendChild( this.debugEl );
+
         this.map = new mapbox.Map({
             container: this.el,
             style: 'mapbox://styles/thesoundtraveler/cinhs70rj000saaktqychkibp'
@@ -38,10 +42,16 @@ class SoundTravelerMap {
             // data: "https://a.tiles.mapbox.com/v4/thesoundtraveler.pm8inaji/features.json?access_token=pk.eyJ1IjoidGhlc291bmR0cmF2ZWxlciIsImEiOiJjaW4wbGhhbHUwYTh5dmhtNGE4NTF2anliIn0.CBcwSbDPfEHfSBLVt_rmOA",
             data: markerData,
             cluster: true,
-            clusterMaxZoom: 14, // Max zoom to cluster points on
-            clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
+            clusterMaxZoom: 50, // Max zoom to cluster points on
+            clusterRadius: 100 // Radius of each cluster when clustering points (defaults to 50)
         });
 
+        this.initLayers();
+        this.initEvents();
+    }
+
+    initLayers(){
+        var map = this.map;
         // Use the data source to create five layers:
         // One for non-clustered markers, three for each cluster category,
         // and one for cluster labels.
@@ -59,12 +69,12 @@ class SoundTravelerMap {
             }
         });
 
-        // Display the earthquake data in three layers, each filtered to a range of
+        // Display the data in three layers, each filtered to a range of
         // count values. Each range gets a different fill color.
         var layers = [
-            [150, '#f28cb1'],
-            [20, '#f1f075'],
-            [0, '#51bbd6']
+            [20, '#ff2a2a'],
+            [10, '#ff7734'],
+            [1, '#ff881b']
         ];
 
         layers.forEach( (layer, i) => {
@@ -98,36 +108,49 @@ class SoundTravelerMap {
                 "text-size": 12
             }
         });
+    }
 
+    initEvents(){
+        var map = this.map
+            ,canvas = map.getCanvasContainer();
 
         // When a click event occurs near a marker icon, open a popup at the location of
         // the feature, with description HTML from its properties.
         map.on('click', (e) => {
-            var features = map.queryRenderedFeatures(e.point, { layers: ['non-cluster-markers'] });
 
-            if (!features.length) {
-                return;
+            var features = map.queryRenderedFeatures(e.point, { layers: ['non-cluster-markers'] })
+                ,feature
+                ,props;
+
+            if (features.length) {
+                feature = features[0];
+                props = feature.properties;
+
+                // open a modal with marker content
+                this.modal.update({
+                    title: props.title
+                    ,description: props.description
+                    ,youtube: props.youtube
+                    ,image: props.image
+                    ,caption: props.caption
+                }).show();
+            } else {
+                features = map.queryRenderedFeatures(e.point, { filter: ['==', 'cluster', true] });
+                if (!features.length) {
+                    return;
+                }
+
+                feature = features[0];
+                map.flyTo({
+                    center: feature.geometry.coordinates
+                    ,zoom: map.getZoom() + 3
+                });
             }
-
-            var feature = features[0];
-
-            this.modal.update({
-                title: feature.properties.title
-                ,youtube: feature.properties.youtube
-            }).show();
-
-            // // Populate the popup and set its coordinates
-            // // based on the feature found.
-            // var popup = new mapbox.Popup()
-            //     .setLngLat(feature.geometry.coordinates)
-            //     .setHTML(feature.properties.description)
-            //     .addTo(map);
         });
 
-        // Use the same approach as above to indicate that the symbols are clickable
-        // by changing the cursor style to 'pointer'.
+        // Cursor pointer hover
         map.on('mousemove', (e) => {
-            var features = map.queryRenderedFeatures(e.point, { layers: ['non-cluster-markers'] });
+            var features = map.queryRenderedFeatures(e.point, { filter: ['==', '$type', 'Point'] });
             map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
         });
     }

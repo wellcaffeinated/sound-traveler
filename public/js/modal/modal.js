@@ -25,6 +25,13 @@ export default class extends Template {
 
         // Add event listeners.
         this.on( 'click', '.close', this.show.bind(this, false) );
+        this.on( 'click', '.modal-popup', ( e )=> {
+            // close modal if click on background
+            var bg = this.querySelector('.modal-popup');
+            if ( bg === e.target ){
+                this.show(false);
+            }
+        });
     }
 
     update( state ) {

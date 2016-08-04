@@ -1,3 +1,4 @@
+{% import getYouTubeId from '../youtube-id' %}
 <div class="animate modal modal-content {{isActive ? 'active' : ''}}">
     <div class="modal-popup">
         <div class="col8 modal-body fill-white contain">
@@ -8,13 +9,26 @@
                 </div>
             </div>
             <div class="pad4x pad2y">
+                {% if description %}
+                    <p>{{ description }}</p>
+                {% endif %}
                 {% if youtube %}
                     <div class="video-wrap">
-                        <iframe class="video" src="https://www.youtube.com/embed/{{ youtube }}" frameborder="0" allowfullscreen></iframe>
+                        {% if getYouTubeId(youtube) %}
+                            <iframe class="video" src="https://www.youtube.com/embed/{{ youtube | getYouTubeId }}" frameborder="0" allowfullscreen></iframe>
+                        {% else %}
+                            <div class="note error contain">
+                                <h3>Invalid YouTube URL</h3>
+                                <p>Can not parse URL "<code>{{ youtube }}</code>".</p>
+                            </div>
+                        {% endif %}
                     </div>
                 {% endif %}
-                {% if content %}
-                    <p>{{ content }}</p>
+                {% if image %}
+                    <div class="clearfix prose">
+                        <p><img src="{{ image }}" /></p>
+                        <p class="caption">{{ caption }}</p>
+                    </div>
                 {% endif %}
             </div>
         </div>
