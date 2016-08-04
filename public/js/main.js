@@ -2,29 +2,35 @@ import './main.scss';
 import _ from 'lodash';
 import mapbox from 'mapbox-gl';
 import domready from 'domready';
-import 'monkberry-events';
 import Monkberry from 'monkberry';
+import 'monkberry-events';
 import Modal from './modal/modal';
 import markerData from '../features.json';
 
 mapbox.accessToken = 'pk.eyJ1IjoidGhlc291bmR0cmF2ZWxlciIsImEiOiJjaW4wbGhhbHUwYTh5dmhtNGE4NTF2anliIn0.CBcwSbDPfEHfSBLVt_rmOA';
 
-function init(){
+class SoundTravelerMap {
+    constructor(){
+        this.el = document.createElement('div');
+        this.el.id = 'map';
 
-    var el = document.createElement('div');
-    el.id = 'map';
-    document.body.appendChild( el );
+        this.modal = Monkberry.render(Modal, document.body);
+    }
 
-    var map = new mapbox.Map({
-        container: el,
-        style: 'mapbox://styles/thesoundtraveler/cinhs70rj000saaktqychkibp'
-    });
+    inject( parent ){
+        parent = parent || document.body;
+        parent.appendChild( this.el );
 
-    const modal = Monkberry.render(Modal, document.body);
-    modal.show();
+        this.map = new mapbox.Map({
+            container: this.el,
+            style: 'mapbox://styles/thesoundtraveler/cinhs70rj000saaktqychkibp'
+        });
 
-    map.on('load', function(){
+        this.map.on('load', this.initMap.bind(this));
+    }
 
+    initMap(){
+        var map = this.map;
         // Add a new source from our GeoJSON data and set the
         // 'cluster' option to true.
         map.addSource("st-data", {
@@ -61,7 +67,7 @@ function init(){
             [0, '#51bbd6']
         ];
 
-        layers.forEach(function (layer, i) {
+        layers.forEach( (layer, i) => {
             map.addLayer({
                 "id": "cluster-" + i,
                 "type": "circle",
@@ -96,7 +102,7 @@ function init(){
 
         // When a click event occurs near a marker icon, open a popup at the location of
         // the feature, with description HTML from its properties.
-        map.on('click', function (e) {
+        map.on('click', (e) => {
             var features = map.queryRenderedFeatures(e.point, { layers: ['non-cluster-markers'] });
 
             if (!features.length) {
@@ -105,21 +111,32 @@ function init(){
 
             var feature = features[0];
 
-            // Populate the popup and set its coordinates
-            // based on the feature found.
-            var popup = new mapbox.Popup()
-                .setLngLat(feature.geometry.coordinates)
-                .setHTML(feature.properties.description)
-                .addTo(map);
+            this.modal.update({
+                title: feature.properties.title
+                ,youtube: feature.properties.youtube
+            }).show();
+
+            // // Populate the popup and set its coordinates
+            // // based on the feature found.
+            // var popup = new mapbox.Popup()
+            //     .setLngLat(feature.geometry.coordinates)
+            //     .setHTML(feature.properties.description)
+            //     .addTo(map);
         });
 
         // Use the same approach as above to indicate that the symbols are clickable
         // by changing the cursor style to 'pointer'.
-        map.on('mousemove', function (e) {
+        map.on('mousemove', (e) => {
             var features = map.queryRenderedFeatures(e.point, { layers: ['non-cluster-markers'] });
             map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
         });
-    });
+    }
+}
+
+function init(){
+
+    var app = new SoundTravelerMap();
+    app.inject();
 }
 
 domready( init );

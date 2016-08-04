@@ -1,5 +1,17 @@
 import Monkberry from 'monkberry';
 import Template from './modal.monk';
+import './modal.scss';
+
+function undefToFalse( obj ){
+    var keys = Object.keys( obj );
+    for ( const key of keys ){
+        if ( obj[key] === undefined ){
+            obj[key] = false;
+        }
+    }
+
+    return obj;
+}
 
 export default class extends Template {
     constructor() {
@@ -16,16 +28,21 @@ export default class extends Template {
     }
 
     update( state ) {
+
         // Define actions to do on state updates.
-        Object.assign(this.state, state);
+        Object.assign(this.state, undefToFalse(state));
 
         // Call update of view itself.
         super.update(this.state);
+        return this;
     }
 
-    show( visibility = true ) {
-        console.log( visibility );
+    show( visibility = true, e ) {
+        if ( e ){
+            e.preventDefault();
+        }
         this.update( { isActive: Boolean(visibility) });
+        return this;
     }
 }
 ;

@@ -123,7 +123,8 @@
                 "description": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/S0uGsAksBaY\" frameborder=\"0\" allowfullscreen></iframe>",
                 "marker-size": "medium",
                 "marker-color": "#E75300",
-                "marker-symbol": ""
+                "marker-symbol": "",
+                "youtube": "S0uGsAksBaY"
             },
             "geometry": {
                 "coordinates": [
