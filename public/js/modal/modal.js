@@ -32,6 +32,10 @@ export default class extends Template {
                 this.show(false);
             }
         });
+
+        this.on( 'change', '.url-input', ( e ) => {
+            console.log(e.target.value);
+        });
     }
 
     update( state ) {

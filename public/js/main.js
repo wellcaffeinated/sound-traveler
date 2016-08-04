@@ -10,9 +10,11 @@ import markerData from '../features.json';
 mapbox.accessToken = 'pk.eyJ1IjoidGhlc291bmR0cmF2ZWxlciIsImEiOiJjaW4wbGhhbHUwYTh5dmhtNGE4NTF2anliIn0.CBcwSbDPfEHfSBLVt_rmOA';
 
 class SoundTravelerMap {
-    constructor(){
+    constructor( opts ){
         this.el = document.createElement('div');
         this.el.id = 'map';
+
+        this.dataUrl = opts.dataUrl;
 
         this.modal = Monkberry.render(Modal, document.body);
     }
@@ -25,12 +27,20 @@ class SoundTravelerMap {
         // this.debugEl.id = 'debug-el';
         // parent.appendChild( this.debugEl );
 
-        this.map = new mapbox.Map({
-            container: this.el,
-            style: 'mapbox://styles/thesoundtraveler/cinhs70rj000saaktqychkibp'
-        });
+        if ( this.dataUrl ){
 
-        this.map.on('load', this.initMap.bind(this));
+            this.map = new mapbox.Map({
+                container: this.el,
+                style: 'mapbox://styles/thesoundtraveler/cinhs70rj000saaktqychkibp'
+            });
+
+            this.map.on('load', this.initMap.bind(this));
+        } else {
+            this.modal.update({
+                title: 'Media Map Setup'
+                ,embedMsg: true
+            }).show();
+        }
     }
 
     initMap(){
@@ -40,7 +50,8 @@ class SoundTravelerMap {
         map.addSource("st-data", {
             type: "geojson",
             // data: "https://a.tiles.mapbox.com/v4/thesoundtraveler.pm8inaji/features.json?access_token=pk.eyJ1IjoidGhlc291bmR0cmF2ZWxlciIsImEiOiJjaW4wbGhhbHUwYTh5dmhtNGE4NTF2anliIn0.CBcwSbDPfEHfSBLVt_rmOA",
-            data: markerData,
+            // data: markerData,
+            data: this.dataUrl,
             cluster: true,
             clusterMaxZoom: 50, // Max zoom to cluster points on
             clusterRadius: 100 // Radius of each cluster when clustering points (defaults to 50)
@@ -123,6 +134,7 @@ class SoundTravelerMap {
                 ,props;
 
             if (features.length) {
+
                 feature = features[0];
                 props = feature.properties;
 
@@ -134,7 +146,9 @@ class SoundTravelerMap {
                     ,image: props.image
                     ,caption: props.caption
                 }).show();
+
             } else {
+
                 features = map.queryRenderedFeatures(e.point, { filter: ['==', 'cluster', true] });
                 if (!features.length) {
                     return;
@@ -156,9 +170,19 @@ class SoundTravelerMap {
     }
 }
 
+function getHashData(){
+    var data;
+    try {
+        data = JSON.parse(window.atob(window.location.hash.substr(1)));
+    } catch( e ){}
+    return data || {};
+}
+
 function init(){
 
-    var app = new SoundTravelerMap();
+    var hashdata = getHashData();
+
+    var app = new SoundTravelerMap({ dataUrl: hashdata.dataUrl });
     app.inject();
 }
 

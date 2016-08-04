@@ -12,6 +12,14 @@
                 {% if description %}
                     <p>{{ description }}</p>
                 {% endif %}
+                {% if embedMsg %}
+                    <form>
+                        <fieldset>
+                            <label>Enter the URL to your geoJSON</label>
+                            <input type="text" class="url-input stretch" name="url" placeholder="http://..." />
+                        </fieldset>
+                    </form>
+                {% endif %}
                 {% if youtube %}
                     <div class="video-wrap">
                         {% if getYouTubeId(youtube) %}

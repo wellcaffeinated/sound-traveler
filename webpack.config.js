@@ -5,13 +5,18 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 	devtool: 'cheap-module-source-map',
-	entry: [
-		// 'webpack-hot-middleware/client',
-		'./public/js/main.js'
-	],
+	entry: {
+		map: [
+			// 'webpack-hot-middleware/client',
+			'./public/js/main.js'
+		]
+		,embed: [
+			'./public/js/embed.js'
+		]
+	},
 	output: {
 		path: path.join(__dirname, 'build'),
-		filename: 'all.js'
+		filename: '[name].js'
 	},
 	plugins: [
 		new webpack.optimize.OccurenceOrderPlugin(),
@@ -23,7 +28,12 @@ module.exports = {
 		new HtmlWebpackPlugin({
 	    	template: 'public/index.pug'
 			,inject: 'head'
-			,
+			,chunks: ['map']
+	    }),
+		new HtmlWebpackPlugin({
+	    	template: 'public/embed.pug'
+			,filename: 'embed.html'
+			,inject: false
 	    })
 	],
 	resolve: {
