@@ -34,7 +34,7 @@
                         </fieldset>
                         {% if $data.geoJsonUrl %}
                             <pre class="fill-navy dark">
-                                {{ "<script type=\"text/javascript\" \n\tsrc=\""+ window.location.origin + "/embed.js\" \n\tdata-geojson=\"" + $data.geoJsonUrl + "\">\n</script>" }}
+                                {{ "<script type=\"text/javascript\" \n\tsrc=\""+ window.location.href.replace(/\/.*$/, '/') + "embed.js\" \n\tdata-geojson=\"" + $data.geoJsonUrl + "\">\n</script>" }}
                             </pre>
                         {% endif %}
                     </form>
