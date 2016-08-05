@@ -5,8 +5,9 @@
             "type": "Feature",
             "properties": {
                 "id": "marker-innf2hvr0",
-                "title": "<b><a href=\"https://youtu.be/6MFUNQeq5js\">Lincoln Memorial</a></b><br>",
-                "description": "<a href=\"https://youtu.be/6MFUNQeq5js\"><img src=\"https://dl.dropbox.com/s/ohxs5jas0m6xieu/0001_Lincoln_Memorial_Thumb.jpg?raw=1\" alt=\"LincolnMemorialWalk\"></a>",
+                "title": "Lincoln Memorial",
+                "description": "",
+                "youtube": "https://youtu.be/6MFUNQeq5js",
                 "marker-size": "medium",
                 "marker-color": "#E75300",
                 "marker-symbol": ""
@@ -24,8 +25,9 @@
             "type": "Feature",
             "properties": {
                 "id": "marker-ipflqtu41",
-                "title": "<b>U.S. National Museum of National History</b>",
-                "description": "<a href=\"https://youtu.be/Xsm9NA7ysjM\"><img src=\"https://dl.dropbox.com/s/ex9tlrq8exbo5y5/0002_Natural_History_Thumb.jpg?raw=1\" alt=“NationalMuseumNaturalHistory\"></a>",
+                "title": "U.S. National Museum of National History",
+                "description": "",
+                "youtube": "https://youtu.be/Xsm9NA7ysjM",
                 "marker-size": "medium",
                 "marker-color": "#E75300",
                 "marker-symbol": ""
@@ -43,8 +45,9 @@
             "type": "Feature",
             "properties": {
                 "id": "marker-iog7a2sc0",
-                "title": "<b><a href=\"https://youtu.be/Y4kc6HloTzA\">The Mona Lisa at the Louvre</a></b><br>",
-                "description": "<a href=\"https://youtu.be/Y4kc6HloTzA\"><img src=\"https://dl.dropbox.com/s/3eqhpcoonx4o6ut/0003_Mona_Lisa_Thumb.jpg?raw=1\" alt=\"MonaLisaWalk\"></a>",
+                "title": "The Mona Lisa at the Louvre",
+                "description": "",
+                "youtube": "https://youtu.be/Y4kc6HloTzA",
                 "marker-size": "medium",
                 "marker-color": "#E75300",
                 "marker-symbol": ""
@@ -63,7 +66,8 @@
             "properties": {
                 "id": "marker-ipzt3ir50",
                 "title": "Visiting the Shire",
-                "description": "<a href=\"https://youtu.be/AULTumrVHqg\"><img src=\"https://dl.dropbox.com/s/9lip54q06n6bc6o/0007_TheShire.jpg\n?raw=1\" alt=“TheShire\"></a>\n",
+                "description": "",
+                "youtube": "https://youtu.be/AULTumrVHqg",
                 "marker-size": "medium",
                 "marker-color": "#E75300",
                 "marker-symbol": ""
@@ -81,8 +85,9 @@
             "type": "Feature",
             "properties": {
                 "id": "marker-iowzxdg00",
-                "title": "<b><a href=\"https://youtu.be/jpiSUYNka0A\">Hitler's Bunker at Berghof</a></b><br>",
-                "description": "<a href=\"https://youtu.be/jpiSUYNka0A\"><img src=\"https://dl.dropbox.com/s/o2x0yxzv25wfgax/0004_HitlersBunkeratBerghof.jpg?raw=1\" alt=\"HitlersBunkerAtBerghof\"></a>",
+                "title": "Hitler's Bunker at Berghof",
+                "description": "",
+                "youtube": "https://youtu.be/jpiSUYNka0A",
                 "marker-size": "medium",
                 "marker-color": "#E75300",
                 "marker-symbol": ""
@@ -101,7 +106,8 @@
             "properties": {
                 "id": "marker-ipflyyxw2",
                 "title": "Bernie Sanders Speech and Handshake",
-                "description": "<a href=\"https://youtu.be/rqrtaY0K7rs\"><img src=\"https://dl.dropbox.com/s/iwxmwk11vkdepaw/0006_FeelTheBurn.jpg?raw=1\" alt=“FeelTheBurn\"></a>",
+                "description": "",
+                "youtube": "https://youtu.be/rqrtaY0K7rs",
                 "marker-size": "medium",
                 "marker-color": "#E75300",
                 "marker-symbol": ""
