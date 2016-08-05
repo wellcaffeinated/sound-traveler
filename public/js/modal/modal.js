@@ -20,12 +20,18 @@ export default class extends Template {
         // Define internal state of your compenent if you need to.
         this.state = {
             name: 'blah'
+            ,userclosable: true
             ,isActive: false
+            ,$data: {}
         };
 
         // Add event listeners.
         this.on( 'click', '.close', this.show.bind(this, false) );
         this.on( 'click', '.modal-popup', ( e )=> {
+
+            if ( !this.state.userclosable ){
+                return;
+            }
             // close modal if click on background
             var bg = this.querySelector('.modal-popup');
             if ( bg === e.target ){
@@ -33,12 +39,13 @@ export default class extends Template {
             }
         });
 
-        this.on( 'change', '.url-input', ( e ) => {
-            console.log(e.target.value);
+        this.on( 'input', '.url-input', ( e ) => {
+            this.state.$data.geoJsonUrl = e.target.value;
+            this.update();
         });
     }
 
-    update( state ) {
+    update( state = this.state ) {
 
         // Define actions to do on state updates.
         Object.assign(this.state, undefToFalse(state));

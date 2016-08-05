@@ -2,7 +2,9 @@
 <div class="animate modal modal-content {{isActive ? 'active' : ''}}">
     <div class="modal-popup">
         <div class="col8 modal-body fill-white contain">
-            <a class="quiet pad1 icon fr close dark" href="#close"></a>
+            {% if userclosable %}
+                <a class="quiet pad1 icon fr close dark" href="#close"></a>
+            {% endif %}
             <div class="fill-blue dark pad1y">
                 <div class="pad4x center">
                     {{ title }}
@@ -12,14 +14,32 @@
                 {% if description %}
                     <p>{{ description }}</p>
                 {% endif %}
+
                 {% if embedMsg %}
-                    <form>
+                    <form class="prose">
+                        <p>
+                            Modify your geoJSON at <a href="http://geojson.io/">geojson.io</a>.
+                            You can set the following properties:
+                        </p>
+                        <ul>
+                            <li><code>title</code>: the title of the marker</li>
+                            <li><code>description</code>: text content of a description</li>
+                            <li><code>youtube</code>: the youtube url of the video to show</li>
+                            <li><code>image</code>: the image url of an image to show</li>
+                            <li><code>caption</code>: the image caption (requires image property)</li>
+                        </ul>
                         <fieldset>
                             <label>Enter the URL to your geoJSON</label>
                             <input type="text" class="url-input stretch" name="url" placeholder="http://..." />
                         </fieldset>
+                        {% if $data.geoJsonUrl %}
+                            <pre class="fill-navy dark">
+                                {{ "<script type=\"text/javascript\" \n\tsrc=\"embed.js\" \n\tdata-geojson=\"" + $data.geoJsonUrl + "\">\n</script>" }}
+                            </pre>
+                        {% endif %}
                     </form>
                 {% endif %}
+
                 {% if youtube %}
                     <div class="video-wrap">
                         {% if getYouTubeId(youtube) %}
@@ -32,6 +52,7 @@
                         {% endif %}
                     </div>
                 {% endif %}
+
                 {% if image %}
                     <div class="clearfix prose">
                         <p><img src="{{ image }}" /></p>

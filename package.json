@@ -33,6 +33,7 @@
     "html-webpack-plugin": "^2.22.0",
     "jshint": "^2.9.2",
     "json-loader": "^0.5.4",
+    "monkberry-directives": "^4.0.7",
     "monkberry-loader": "^4.0.7",
     "node-sass": "^3.8.0",
     "pug": "^2.0.0-beta4",

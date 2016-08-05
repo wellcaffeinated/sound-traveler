@@ -39,6 +39,7 @@ class SoundTravelerMap {
             this.modal.update({
                 title: 'Media Map Setup'
                 ,embedMsg: true
+                ,userclosable: false
             }).show();
         }
     }
