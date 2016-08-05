@@ -172,9 +172,5 @@ gulp.task('webpack-dev-server', function(callback) {
 
 
 // Default Task
-gulp.task( 'default', ['lint', 'sass', 'scripts', 'scripts-min', 'jade'] );
-
-gulp.task( 'dev', ['sass', 'scripts', 'jade', 'watch', 'server'] );
-
-gulp.task( 'dev-wp', ['webpack-dev-server'] );
+gulp.task( 'default', ['webpack-dev-server'] );
 gulp.task( 'build', ['webpack:build'] );
